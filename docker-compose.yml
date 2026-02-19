@@ -38,6 +38,8 @@ services:
       - dbdata:/var/lib/mysql
     networks:
       - internal
+    env_file:
+      - .env.db
 
 volumes:
   dbdata:
