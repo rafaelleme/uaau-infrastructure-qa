@@ -9,6 +9,8 @@ services:
       - db
     networks:
       - internal
+    env_file:
+      - .env
 
   nginx:
     image: nginx:stable
