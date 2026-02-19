@@ -20,6 +20,8 @@ services:
       - api
     networks:
       - internal
+    ports:
+      - "85:80"
 
   db:
     image: mysql:8.0
