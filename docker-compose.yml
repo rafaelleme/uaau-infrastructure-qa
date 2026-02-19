@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  api:
+    image: rafaeluaau/foram-pro-mundo-api:${TAG}
+    container_name: foram-pro-mundo.api
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:stable
+    container_name: foram-pro-mundo.nginx
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+    networks:
+      - internal
+
+  db:
+    image: mysql:8.0
+    container_name: foram-pro-mundo.mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - internal
+
+volumes:
+  dbdata:
+
+networks:
+  internal:
+    driver: bridge
