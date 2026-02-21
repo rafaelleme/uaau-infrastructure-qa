@@ -1,0 +1,7 @@
+services:
+  web:
+    image: rafaeluaau/foram-pro-mundo-web:${TAG}
+    container_name: foram-pro-mundo.web
+    ports:
+      - "86:80"
+    restart: always
